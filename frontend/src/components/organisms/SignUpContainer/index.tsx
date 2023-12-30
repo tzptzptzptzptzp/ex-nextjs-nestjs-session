@@ -1,5 +1,8 @@
 "use client";
 
+import { TextInput } from "@/components/atoms/TextInput";
+import { Form } from "@/components/form/Form";
+
 export const SignUpContainer = () => {
   const handleSubmit = () => {
     console.log("submit");
@@ -7,7 +10,7 @@ export const SignUpContainer = () => {
   return (
     <div className="p-12 rounded-3xl shadow-lg">
       <h2 className="mb-4 text-3xl text-center">SignUp</h2>
-      <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+      <Form className="flex flex-col gap-8" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           <div datatype="username" className="flex flex-col">
             <label className="ml-2" htmlFor="username">
@@ -31,6 +34,7 @@ export const SignUpContainer = () => {
               placeholder="Password"
             />
           </div>
+          <TextInput name="hoge" />
           <div datatype="confirmPassword" className="flex flex-col">
             <label className="ml-2" htmlFor="confirmPassword">
               ConfirmPassword<span className="text-red-500">*</span>
@@ -49,7 +53,7 @@ export const SignUpContainer = () => {
         >
           Submit
         </button>
-      </form>
+      </Form>
     </div>
   );
 };
