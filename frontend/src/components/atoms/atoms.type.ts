@@ -25,6 +25,14 @@ export type InputType = {
   value?: string | number | boolean;
 };
 
+export type TextType = {
+  className?: string;
+  bold?: boolean;
+  children: React.ReactNode;
+  color?: string;
+  size?: string;
+};
+
 export type LabelType = {
   className?: string;
   htmlFor?: string;
