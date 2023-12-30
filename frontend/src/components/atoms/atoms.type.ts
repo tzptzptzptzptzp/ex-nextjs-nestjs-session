@@ -24,3 +24,10 @@ export type InputType = {
   type?: InputAttributeType;
   value?: string | number | boolean;
 };
+
+export type LabelType = {
+  className?: string;
+  htmlFor?: string;
+  isRequired?: boolean;
+  text: string | JSX.Element;
+};
