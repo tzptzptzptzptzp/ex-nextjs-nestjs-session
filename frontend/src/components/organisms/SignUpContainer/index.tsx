@@ -1,51 +1,62 @@
 "use client";
 
-import { TextInput } from "@/components/atoms/TextInput";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Form } from "@/components/form/Form";
+import { FormTextInput } from "@/components/form/FormTextInput";
+
+import { UserSchema } from "@/schema/user.schema";
 
 export const SignUpContainer = () => {
-  const handleSubmit = () => {
+  const { control, handleSubmit } = useForm({
+    defaultValues: UserSchema.defaultValues,
+    mode: "onChange",
+    resolver: zodResolver(UserSchema.signUpSchema),
+  });
+
+  const handleSubmitForm = () => {
     console.log("submit");
   };
   return (
     <div className="p-12 rounded-3xl shadow-lg">
       <h2 className="mb-4 text-3xl text-center">SignUp</h2>
-      <Form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+      <Form
+        className="flex flex-col gap-8"
+        onSubmit={handleSubmit(handleSubmitForm)}
+      >
         <div className="flex flex-col gap-4">
-          <div datatype="username" className="flex flex-col">
-            <label className="ml-2" htmlFor="username">
-              UserName<span className="text-red-500">*</span>
-            </label>
-            <input
-              className="w-80 px-2 py-1 border"
-              id="username"
-              type="text"
-              placeholder="Username"
-            />
-          </div>
-          <div datatype="password" className="flex flex-col">
-            <label className="ml-2" htmlFor="password">
-              Password<span className="text-red-500">*</span>
-            </label>
-            <input
-              className="w-80 px-2 py-1 border"
-              id="password"
-              type="text"
-              placeholder="Password"
-            />
-          </div>
-          <TextInput name="hoge" />
-          <div datatype="confirmPassword" className="flex flex-col">
-            <label className="ml-2" htmlFor="confirmPassword">
-              ConfirmPassword<span className="text-red-500">*</span>
-            </label>
-            <input
-              className="w-80 px-2 py-1 border"
-              id="confirmPassword"
-              type="text"
-              placeholder="ConfirmPassword"
-            />
-          </div>
+          <FormTextInput
+            control={control}
+            isRequired
+            label={"username"}
+            maxLength={20}
+            name={"username"}
+          />
+          <FormTextInput
+            control={control}
+            isRequired
+            label={"email"}
+            maxLength={100}
+            name={"email"}
+            type="email"
+          />
+          <FormTextInput
+            control={control}
+            isRequired
+            label={"password"}
+            maxLength={100}
+            name={"password"}
+            type="password"
+          />
+          <FormTextInput
+            control={control}
+            isRequired
+            label={"confirmPassword"}
+            maxLength={100}
+            name={"confirmPassword"}
+            type="password"
+          />
         </div>
         <button
           className="w-2/3 h-8 mx-auto border bg-gray-700 hover:bg-white text-white hover:text-gray-700 duration-300"
