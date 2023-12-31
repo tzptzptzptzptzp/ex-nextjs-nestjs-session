@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/form/Form";
 import { FormTextInput } from "@/components/form/FormTextInput";
 
-import { UserSchema } from "@/schema/user.schema";
+import { UserSchema, signUpType } from "@/schema/user.schema";
 
 export const SignUpContainer = () => {
   const { control, handleSubmit } = useForm({
@@ -15,8 +15,12 @@ export const SignUpContainer = () => {
     resolver: zodResolver(UserSchema.signUpSchema),
   });
 
-  const handleSubmitForm = () => {
-    console.log("submit");
+  const handleSubmitForm = async (req: signUpType) => {
+    try {
+      await console.log(req);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className="p-12 rounded-3xl shadow-lg">
