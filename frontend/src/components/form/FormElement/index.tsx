@@ -57,8 +57,8 @@ const FormElementBase = <T extends FieldValues>({
         <Text
           bold
           className={clsx([errorClassName, "mt-2 pl-2"])}
-          color="red-400"
-          size="2rem"
+          color="#ef4444"
+          size=".9rem"
         >
           {error?.message}
         </Text>
