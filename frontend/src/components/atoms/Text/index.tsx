@@ -11,12 +11,9 @@ export const Text = forwardRef<HTMLParagraphElement, TextType>(
   ) => {
     return (
       <p
-        className={clsx([
-          className,
-          bold && "font-bold",
-          `text-${color} text-[${size}]`,
-        ])}
+        className={clsx([className, bold && "font-bold"])}
         ref={ref}
+        style={{ color: color, fontSize: size }}
       >
         {children}
       </p>
