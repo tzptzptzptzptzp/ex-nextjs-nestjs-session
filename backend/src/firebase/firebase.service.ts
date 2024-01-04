@@ -53,4 +53,40 @@ export class FirebaseService {
   getFirestore(): firestore.Firestore {
     return this.firestore;
   }
+
+  /**
+   * admin storage 取得
+   */
+  getStorage(): storage.Storage {
+    return this.storage;
+  }
+
+  /**
+   * FirestoreCollection 取得
+   */
+  getCollectionRef(
+    collectionName: string,
+  ): firestore.CollectionReference<firestore.DocumentData> {
+    return this.firestore
+      .collection(API_VERSION)
+      .doc(envDoc())
+      .collection(collectionName);
+  }
+
+  /**
+   * FirestoreDocument 登録・更新
+   * @param collectionRef: コレクションリファレンス
+   * @param docId: ドキュメントID
+   * @param data: 登録データ
+   */
+  async upsertDoc(
+    collectionRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>,
+    docId: string,
+    data: unknown,
+  ): Promise<firestore.WriteResult> {
+    const res = await collectionRef
+      .doc(docId)
+      .set(Object.assign({}, data), { merge: true });
+    return res;
+  }
 }
