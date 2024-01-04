@@ -72,4 +72,21 @@ export class FirebaseService {
       .doc(envDoc())
       .collection(collectionName);
   }
+
+  /**
+   * FirestoreDocument 登録・更新
+   * @param collectionRef: コレクションリファレンス
+   * @param docId: ドキュメントID
+   * @param data: 登録データ
+   */
+  async upsertDoc(
+    collectionRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>,
+    docId: string,
+    data: unknown,
+  ): Promise<firestore.WriteResult> {
+    const res = await collectionRef
+      .doc(docId)
+      .set(Object.assign({}, data), { merge: true });
+    return res;
+  }
 }
