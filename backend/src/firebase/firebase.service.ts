@@ -53,4 +53,11 @@ export class FirebaseService {
   getFirestore(): firestore.Firestore {
     return this.firestore;
   }
+
+  /**
+   * admin storage 取得
+   */
+  getStorage(): storage.Storage {
+    return this.storage;
+  }
 }
