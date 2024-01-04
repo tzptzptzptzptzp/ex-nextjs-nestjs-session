@@ -60,4 +60,16 @@ export class FirebaseService {
   getStorage(): storage.Storage {
     return this.storage;
   }
+
+  /**
+   * FirestoreCollection 取得
+   */
+  getCollectionRef(
+    collectionName: string,
+  ): firestore.CollectionReference<firestore.DocumentData> {
+    return this.firestore
+      .collection(API_VERSION)
+      .doc(envDoc())
+      .collection(collectionName);
+  }
 }
