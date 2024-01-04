@@ -46,4 +46,11 @@ export class FirebaseService {
   getAuth(): auth.Auth {
     return this.auth;
   }
+
+  /**
+   * admin firestore 取得
+   */
+  getFirestore(): firestore.Firestore {
+    return this.firestore;
+  }
 }
