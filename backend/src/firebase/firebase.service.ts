@@ -39,4 +39,11 @@ export class FirebaseService {
   private readonly firestore: firestore.Firestore;
 
   private readonly storage: storage.Storage;
+
+  /**
+   * admin auth 取得
+   */
+  getAuth(): auth.Auth {
+    return this.auth;
+  }
 }
