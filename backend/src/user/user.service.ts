@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FirebaseService } from 'src/firebase/firebase.service';
 import { UsersEntity } from './model/users.entity';
 
@@ -25,5 +25,15 @@ export class UserService {
       throw new Error('Firebaseへのデータの登録・更新に失敗しました。');
     }
     return 'Firebaseへのデータの登録・更新に成功しました。';
+  }
+
+  /**
+   * ユーザーデータ既存判定関数
+   * @param email
+   */
+  async userExists(email: string): Promise<boolean> {
+    const userRef = await this.firebaseService.getCollectionRef('users');
+    const snapshot = await userRef.where('email', '==', email).get();
+    return !snapshot.empty;
   }
 }
