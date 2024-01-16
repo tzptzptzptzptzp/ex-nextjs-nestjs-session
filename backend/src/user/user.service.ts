@@ -8,10 +8,15 @@ export class UserService {
 
   /**
    * ユーザーデータ作成関数
-   * @param uid
    * @param email
+   * @param password
+   * @param uid
    */
-  async createUserData(uid: string, email: string): Promise<string> {
+  async createUserData(
+    email: string,
+    password: string,
+    uid: string,
+  ): Promise<string> {
     if (await this.userExists(email)) {
       throw new HttpException(
         '既にユーザーデータが存在します。',
@@ -21,6 +26,7 @@ export class UserService {
     const userRef = await this.firebaseService.getCollectionRef('users');
     const accountData = new UsersEntity({
       email: email,
+      password: password,
       username: '',
     });
 
