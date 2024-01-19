@@ -8,9 +8,10 @@ export class UserController {
   // ユーザーデータ作成
   @Post('/create')
   async createUserData(
-    @Body('uid') uid: string,
     @Body('email') email: string,
+    @Body('password') password: string,
+    @Body('uid') uid: string,
   ): Promise<string> {
-    return await this.userService.createUserData(uid, email);
+    return await this.userService.createUserData(email, password, uid);
   }
 }
