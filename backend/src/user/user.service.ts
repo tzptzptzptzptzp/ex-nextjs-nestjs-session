@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FirebaseService } from 'src/firebase/firebase.service';
 import { UsersEntity } from './model/users.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -23,10 +24,13 @@ export class UserService {
         HttpStatus.CONFLICT,
       );
     }
+
+    const hashPassword = await bcrypt.hash(password, 10);
+
     const userRef = await this.firebaseService.getCollectionRef('users');
     const accountData = new UsersEntity({
       email: email,
-      password: password,
+      password: hashPassword,
       username: '',
     });
 
