@@ -14,4 +14,12 @@ export class UserController {
   ): Promise<string> {
     return await this.userService.userSignup(email, password, uid);
   }
+
+  @Post('/signin')
+  async userSignIn(
+    @Body('email') email: string,
+    @Body('password') password: string,
+  ): Promise<string> {
+    return await this.userService.userSignIn(email, password);
+  }
 }
