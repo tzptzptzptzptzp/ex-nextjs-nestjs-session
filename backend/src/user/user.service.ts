@@ -8,12 +8,12 @@ export class UserService {
   constructor(private readonly firebaseService: FirebaseService) {}
 
   /**
-   * ユーザーデータ作成関数
+   * ユーザーサインアップ関数
    * @param email
    * @param password
    * @param uid
    */
-  async createUserData(
+  async userSignup(
     email: string,
     password: string,
     uid: string,

@@ -5,13 +5,13 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // ユーザーデータ作成
+  // サインアップ
   @Post('/create')
-  async createUserData(
+  async userSignUp(
     @Body('email') email: string,
     @Body('password') password: string,
     @Body('uid') uid: string,
   ): Promise<string> {
-    return await this.userService.createUserData(email, password, uid);
+    return await this.userService.userSignup(email, password, uid);
   }
 }
