@@ -52,4 +52,32 @@ export class UserService {
     const snapshot = await userRef.where('email', '==', email).get();
     return !snapshot.empty;
   }
+
+  /**
+   * ユーザーログイン関数
+   * @param email
+   * @param password
+   */
+  async userSignIn(email: string, password: string): Promise<string> {
+    const userRef = await this.firebaseService.getCollectionRef('users');
+    const snapshot = await userRef.where('email', '==', email).get();
+
+    if (snapshot.empty) {
+      throw new HttpException(
+        'ユーザーデータが存在しません。',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    const user = snapshot.docs[0].data();
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+      throw new HttpException(
+        'パスワードが一致しません。',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    return 'ユーザーログインに成功しました。';
+  }
 }
