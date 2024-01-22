@@ -2,11 +2,21 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FirebaseService } from 'src/firebase/firebase.service';
 import { UsersEntity } from './model/users.entity';
 import * as bcrypt from 'bcrypt';
+import { SessionService } from 'src/session/session.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly firebaseService: FirebaseService) {}
+  constructor(
+    private readonly firebaseService: FirebaseService,
+    private readonly sessionService: SessionService,
+  ) {}
 
+  /**
+   * サインアップ
+   * @param email
+   * @param password
+   * @param uid
+   */
   async userSignup(
     email: string,
     password: string,
@@ -22,9 +32,16 @@ export class UserService {
     });
 
     await this.saveUserData(uid, accountData);
-    return 'Firebaseへのデータの登録・更新に成功しました。';
+
+    const token = await this.sessionService.createToken(uid);
+    return token;
   }
 
+  /**
+   * サインイン
+   * @param email
+   * @param password
+   */
   async userSignIn(email: string, password: string): Promise<string> {
     const user = await this.findUserByEmail(email);
 
@@ -36,18 +53,14 @@ export class UserService {
       );
     }
 
-    return 'ユーザーログインに成功しました。';
+    const token = await this.sessionService.createToken(user.uid);
+    return token;
   }
 
-  private async validateUserNotExist(email: string): Promise<void> {
-    if (await this.userExists(email)) {
-      throw new HttpException(
-        '既にユーザーデータが存在します。',
-        HttpStatus.CONFLICT,
-      );
-    }
-  }
-
+  /**
+   * ユーザーデータ取得
+   * @param email
+   */
   private async findUserByEmail(email: string): Promise<any> {
     const userRef = await this.firebaseService.getCollectionRef('users');
     const snapshot = await userRef.where('email', '==', email).get();
@@ -62,6 +75,11 @@ export class UserService {
     return snapshot.docs[0].data();
   }
 
+  /**
+   * ユーザーデータ登録
+   * @param uid
+   * @param accountData
+   */
   private async saveUserData(
     uid: string,
     accountData: UsersEntity,
@@ -77,9 +95,26 @@ export class UserService {
     }
   }
 
+  /**
+   * ユーザー既存判定
+   * @param email
+   */
   private async userExists(email: string): Promise<boolean> {
     const userRef = await this.firebaseService.getCollectionRef('users');
     const snapshot = await userRef.where('email', '==', email).get();
     return !snapshot.empty;
+  }
+
+  /**
+   * ユーザー既存例外処理
+   * @param email
+   */
+  private async validateUserNotExist(email: string): Promise<void> {
+    if (await this.userExists(email)) {
+      throw new HttpException(
+        '既にユーザーデータが存在します。',
+        HttpStatus.CONFLICT,
+      );
+    }
   }
 }
