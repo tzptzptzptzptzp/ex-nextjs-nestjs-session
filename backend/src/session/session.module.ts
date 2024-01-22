@@ -3,12 +3,14 @@ import { SessionController } from './session.controller';
 import { SessionService } from './session.service';
 import { JwtModule } from '@nestjs/jwt';
 
+require('dotenv').config();
+
 @Module({
   controllers: [SessionController],
   exports: [SessionService],
   imports: [
     JwtModule.register({
-      secret: 'secret-key',
+      secret: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: '1d' },
     }),
   ],
