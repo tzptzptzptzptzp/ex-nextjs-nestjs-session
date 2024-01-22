@@ -7,6 +7,12 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
   constructor(private readonly firebaseService: FirebaseService) {}
 
+  /**
+   * サインアップ
+   * @param email
+   * @param password
+   * @param uid
+   */
   async userSignup(
     email: string,
     password: string,
@@ -25,6 +31,11 @@ export class UserService {
     return 'Firebaseへのデータの登録・更新に成功しました。';
   }
 
+  /**
+   * サインイン
+   * @param email
+   * @param password
+   */
   async userSignIn(email: string, password: string): Promise<string> {
     const user = await this.findUserByEmail(email);
 
@@ -39,15 +50,10 @@ export class UserService {
     return 'ユーザーログインに成功しました。';
   }
 
-  private async validateUserNotExist(email: string): Promise<void> {
-    if (await this.userExists(email)) {
-      throw new HttpException(
-        '既にユーザーデータが存在します。',
-        HttpStatus.CONFLICT,
-      );
-    }
-  }
-
+  /**
+   * ユーザーデータ取得
+   * @param email
+   */
   private async findUserByEmail(email: string): Promise<any> {
     const userRef = await this.firebaseService.getCollectionRef('users');
     const snapshot = await userRef.where('email', '==', email).get();
@@ -62,6 +68,11 @@ export class UserService {
     return snapshot.docs[0].data();
   }
 
+  /**
+   * ユーザーデータ登録
+   * @param uid
+   * @param accountData
+   */
   private async saveUserData(
     uid: string,
     accountData: UsersEntity,
@@ -77,9 +88,26 @@ export class UserService {
     }
   }
 
+  /**
+   * ユーザー既存判定
+   * @param email
+   */
   private async userExists(email: string): Promise<boolean> {
     const userRef = await this.firebaseService.getCollectionRef('users');
     const snapshot = await userRef.where('email', '==', email).get();
     return !snapshot.empty;
+  }
+
+  /**
+   * ユーザー既存例外処理
+   * @param email
+   */
+  private async validateUserNotExist(email: string): Promise<void> {
+    if (await this.userExists(email)) {
+      throw new HttpException(
+        '既にユーザーデータが存在します。',
+        HttpStatus.CONFLICT,
+      );
+    }
   }
 }
