@@ -2,10 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FirebaseService } from 'src/firebase/firebase.service';
 import { UsersEntity } from './model/users.entity';
 import * as bcrypt from 'bcrypt';
+import { SessionService } from 'src/session/session.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly firebaseService: FirebaseService) {}
+  constructor(
+    private readonly firebaseService: FirebaseService,
+    private readonly sessionService: SessionService,
+  ) {}
 
   /**
    * サインアップ
@@ -28,7 +32,9 @@ export class UserService {
     });
 
     await this.saveUserData(uid, accountData);
-    return 'Firebaseへのデータの登録・更新に成功しました。';
+
+    const token = await this.sessionService.createToken(uid);
+    return token;
   }
 
   /**
@@ -47,7 +53,8 @@ export class UserService {
       );
     }
 
-    return 'ユーザーログインに成功しました。';
+    const token = await this.sessionService.createToken(user.uid);
+    return token;
   }
 
   /**

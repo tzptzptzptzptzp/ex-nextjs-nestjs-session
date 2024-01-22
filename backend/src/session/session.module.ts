@@ -5,10 +5,11 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   controllers: [SessionController],
+  exports: [SessionService],
   imports: [
     JwtModule.register({
       secret: 'secret-key',
-      signOptions: { expiresIn: '1w' },
+      signOptions: { expiresIn: '1d' },
     }),
   ],
   providers: [SessionService],
