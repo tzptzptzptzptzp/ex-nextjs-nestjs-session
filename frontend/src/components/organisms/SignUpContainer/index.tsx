@@ -22,6 +22,8 @@ export const SignUpContainer = () => {
         email: req.email,
         password: req.password,
       });
+      const token = response.data;
+      localStorage.setItem("token", token);
       return response.data;
     } catch (error) {
       console.error(error);
