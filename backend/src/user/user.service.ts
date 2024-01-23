@@ -3,6 +3,7 @@ import { FirebaseService } from 'src/firebase/firebase.service';
 import { UsersEntity } from './model/users.entity';
 import * as bcrypt from 'bcrypt';
 import { SessionService } from 'src/session/session.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UserService {
@@ -31,7 +32,9 @@ export class UserService {
       username: '',
     });
 
-    await this.saveUserData(uid, accountData);
+    const uuid = uuidv4();
+
+    await this.saveUserData(uuid, accountData);
 
     const token = await this.sessionService.createToken(uid);
     return token;
