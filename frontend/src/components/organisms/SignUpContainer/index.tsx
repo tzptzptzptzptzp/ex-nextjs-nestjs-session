@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -17,7 +18,13 @@ export const SignUpContainer = () => {
 
   const handleSubmitForm = async (req: signUpType) => {
     try {
-      await console.log(req);
+      const response = await axios.post("http://localhost:8080/user/create", {
+        email: req.email,
+        password: req.password,
+      });
+      const token = response.data;
+      localStorage.setItem("token", token);
+      return response.data;
     } catch (error) {
       console.error(error);
     }
