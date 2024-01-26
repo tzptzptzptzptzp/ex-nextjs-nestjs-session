@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookie from "js-cookie";
 
 import { SignUp as SignUpType } from "./types";
 
@@ -9,7 +10,7 @@ export const SignUp = async (req: SignUpType) => {
       password: req.password,
     });
     const token = response.data;
-    localStorage.setItem("token", token);
+    Cookie.set("token", token, { expires: 1 });
     return response.data;
   } catch (error) {
     console.error(error);
