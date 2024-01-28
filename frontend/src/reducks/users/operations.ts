@@ -10,7 +10,7 @@ export const SignUp = async (req: SignUpType) => {
       password: req.password,
     });
     const token = response.data;
-    Cookie.set("token", token, { expires: 1 });
+    Cookie.set("authorization", token, { expires: 1 });
     return response.data;
   } catch (error) {
     console.error(error);
