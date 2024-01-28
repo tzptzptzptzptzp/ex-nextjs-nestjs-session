@@ -9,8 +9,9 @@ async function bootstrap() {
   // CORS設定
   const allowedOrigins: Array<string> = ['http://localhost:3000'];
   app.enableCors({
-    origin: allowedOrigins,
+    credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    origin: allowedOrigins,
   });
 
   await app.listen(PORT);
