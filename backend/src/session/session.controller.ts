@@ -1,10 +1,11 @@
 import {
   Controller,
   Get,
-  Headers,
   HttpException,
   HttpStatus,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { SessionService } from './session.service';
 
 @Controller('session')
@@ -12,7 +13,8 @@ export class SessionController {
   constructor(private sessionService: SessionService) {}
 
   @Get('/verify')
-  async verifyToken(@Headers('authorization') token: string) {
+  async verifyToken(@Req() req: Request) {
+    const token = req.cookies['authorization'];
     if (!token) {
       throw new HttpException('No token provided', HttpStatus.BAD_REQUEST);
     }
