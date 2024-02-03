@@ -14,6 +14,8 @@ export default function Home() {
   );
   console.log(data);
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen p-24"></main>
+    <main className="flex flex-col items-center justify-between min-h-screen p-24">
+      <SignUpContainer />
+    </main>
   );
 }
