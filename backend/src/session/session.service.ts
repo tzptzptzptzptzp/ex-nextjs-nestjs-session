@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 interface TokenPayload {
   uid: string;
@@ -28,5 +29,17 @@ export class SessionService {
     } catch (err) {
       throw new Error('Invalid token');
     }
+  }
+
+  /**
+   * リクエストからトークンを検証
+   * @param req
+   */
+  async verifyTokenFromRequest(req: Request): Promise<any> {
+    const token = req.cookies['authorization'];
+    if (!token) {
+      throw new HttpException('No token provided', HttpStatus.BAD_REQUEST);
+    }
+    return this.verifyToken(token);
   }
 }
