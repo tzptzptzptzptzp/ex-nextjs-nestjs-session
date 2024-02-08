@@ -61,7 +61,7 @@ export class UserService {
   }
 
   /**
-   * ユーザーデータ取得
+   * Emailからユーザーデータ取得
    * @param email
    */
   private async findUserByEmail(email: string): Promise<any> {
