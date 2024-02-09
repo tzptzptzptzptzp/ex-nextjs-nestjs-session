@@ -18,11 +18,7 @@ export class UserService {
    * @param password
    * @param uid
    */
-  async userSignup(
-    email: string,
-    password: string,
-    uid: string,
-  ): Promise<string> {
+  async userSignup(email: string, password: string): Promise<string> {
     await this.validateUserNotExist(email);
 
     const hashPassword = await bcrypt.hash(password, 10);
@@ -36,7 +32,7 @@ export class UserService {
 
     await this.saveUserData(uuid, accountData);
 
-    const token = await this.sessionService.createToken(uid);
+    const token = await this.sessionService.createToken(uuid);
     return token;
   }
 
@@ -61,7 +57,7 @@ export class UserService {
   }
 
   /**
-   * ユーザーデータ取得
+   * Emailからユーザーデータ取得
    * @param email
    */
   private async findUserByEmail(email: string): Promise<any> {
