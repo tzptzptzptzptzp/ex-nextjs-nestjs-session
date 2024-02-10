@@ -12,7 +12,7 @@ export class UserController {
     @Body('password') password: string,
     @Body('uid') uid: string,
   ): Promise<string> {
-    return await this.userService.userSignup(email, password, uid);
+    return await this.userService.userSignup(email, password);
   }
 
   @Post('/signin')
