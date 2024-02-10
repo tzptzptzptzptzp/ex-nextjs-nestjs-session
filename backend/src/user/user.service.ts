@@ -57,6 +57,25 @@ export class UserService {
   }
 
   /**
+   * uidからユーザーデータ取得
+   * @param token
+   */
+  async findUserByUid(uid: string): Promise<any> {
+    const userDocRef = await this.firebaseService
+      .getCollectionRef('users')
+      .doc(uid);
+    const user = await userDocRef.get();
+    if (!user.exists) {
+      throw new HttpException(
+        'ユーザーデータが存在しません。',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    return user.data();
+  }
+
+  /**
    * Emailからユーザーデータ取得
    * @param email
    */
