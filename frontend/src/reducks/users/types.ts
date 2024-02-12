@@ -5,5 +5,6 @@ export type SignUp = {
 
 export type UsersStateType = {
   email: string;
+  password: string;
   username: string;
 };
