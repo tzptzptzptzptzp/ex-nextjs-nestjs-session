@@ -7,3 +7,11 @@ export const signInAction = (userState: UsersStateType) => {
     payload: userState,
   };
 };
+
+export const VERIFY_TOKEN = "VERIFY_TOKEN";
+export const verifyTokenAction = (userState: UsersStateType) => {
+  return {
+    type: "VERIFY_TOKEN",
+    payload: userState,
+  };
+};
