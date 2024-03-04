@@ -1,4 +1,4 @@
-import { config } from "@/config";
+import { config } from "@/config/api.config";
 import useSWR from "swr";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
