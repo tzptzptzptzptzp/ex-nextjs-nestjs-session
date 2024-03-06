@@ -11,6 +11,6 @@ export const SignUpVerify = createAsyncThunk(
     const res = await axios.get(`${config.API_BASE_URL}session/verify`, {
       withCredentials: true,
     });
-    return res.data;
+    return res.data.user;
   }
 );
