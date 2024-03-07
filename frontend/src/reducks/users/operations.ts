@@ -2,12 +2,12 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { UserType } from "./types";
 import { config } from "@/config/api.config";
-import { SignUp } from "@/utils/SignUp.util";
+import { signUp } from "@/utils/signUp.util";
 
 export const SignUpVerify = createAsyncThunk(
   "user/signUpVerify",
   async (req: UserType) => {
-    await SignUp(req);
+    await signUp(req);
     const res = await axios.get(`${config.API_BASE_URL}session/verify`, {
       withCredentials: true,
     });
