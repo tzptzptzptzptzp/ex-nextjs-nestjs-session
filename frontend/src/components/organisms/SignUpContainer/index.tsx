@@ -1,13 +1,13 @@
 "use client";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Form } from "@/components/form/Form";
 import { FormTextInput } from "@/components/form/FormTextInput";
 
-import { SignUp } from "@/reducks/users/operations";
 import { UserSchema } from "@/schema/user.schema";
+import { UserType } from "@/reducks/users/types";
+import { useSignUpVerifyDispatch } from "@/reducks/users/dispatches";
 
 export const SignUpContainer = () => {
   const { control, handleSubmit } = useForm({
@@ -16,10 +16,16 @@ export const SignUpContainer = () => {
     resolver: zodResolver(UserSchema.signUpSchema),
   });
 
+  const handleClick = (req: UserType) => {
+    useSignUpVerifyDispatch(req);
+  };
   return (
     <div className="p-12 rounded-3xl shadow-lg">
       <h2 className="mb-4 text-3xl text-center">SignUp</h2>
-      <Form className="flex flex-col gap-8" onSubmit={handleSubmit(SignUp)}>
+      <Form
+        className="flex flex-col gap-8"
+        onSubmit={handleSubmit(handleClick)}
+      >
         <div className="flex flex-col gap-4">
           <FormTextInput
             control={control}
