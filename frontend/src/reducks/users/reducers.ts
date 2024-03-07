@@ -1,6 +1,5 @@
 import { ActionReducerMapBuilder, PayloadAction } from "@reduxjs/toolkit";
-
-import { SignUpVerify } from "./operations";
+import { SignUpVerify, VerifySession } from "./operations";
 import { UserStateType } from "./types";
 
 const reducers = {
@@ -21,6 +20,22 @@ const extraReducers = (builder: ActionReducerMapBuilder<UserStateType>) => {
     state.errorMessage = "Failed to fetch user data";
   });
   builder.addCase(SignUpVerify.fulfilled, (state, action) => {
+    state.user = action.payload;
+    state.loading = false;
+    state.error = false;
+    state.errorMessage = "";
+  });
+  builder.addCase(VerifySession.pending, (state) => {
+    state.loading = true;
+    state.error = false;
+    state.errorMessage = "";
+  });
+  builder.addCase(VerifySession.rejected, (state) => {
+    state.loading = false;
+    state.error = true;
+    state.errorMessage = "Failed to fetch user data";
+  });
+  builder.addCase(VerifySession.fulfilled, (state, action) => {
     state.user = action.payload;
     state.loading = false;
     state.error = false;
