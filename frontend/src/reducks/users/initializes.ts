@@ -1,11 +1,7 @@
 import { UserStateType } from "./types";
 
 export const initialUserState: UserStateType = {
-  user: {
-    email: "",
-    password: "",
-    username: "",
-  },
+  user: null,
   loading: false,
   error: false,
   errorMessage: "",
