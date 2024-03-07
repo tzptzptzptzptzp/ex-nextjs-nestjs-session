@@ -11,3 +11,11 @@ export const SignUpVerify = createAsyncThunk(
     return user;
   }
 );
+
+export const VerifySession = createAsyncThunk(
+  "user/verifySession",
+  async () => {
+    const user = await verifySession();
+    return user;
+  }
+);
