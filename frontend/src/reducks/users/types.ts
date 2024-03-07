@@ -5,7 +5,7 @@ export type UserType = {
 };
 
 export type UserStateType = {
-  user: UserType;
+  user: UserType | null;
   loading: boolean;
   error: boolean;
   errorMessage: string;
