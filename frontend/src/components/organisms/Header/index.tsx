@@ -10,9 +10,12 @@ export const Header = () => {
       <nav>
         <ul className="flex items-center gap-4">
           {user ? (
-            <li>
-              <Link href="/signout">SignOut</Link>
-            </li>
+            <>
+              <li>
+                <Link href="/signout">SignOut</Link>
+              </li>
+              <li className="w-8 h-8 rounded-full bg-gray-400"></li>
+            </>
           ) : (
             <>
               <li>
@@ -21,7 +24,6 @@ export const Header = () => {
               <li>
                 <Link href="/signin">SignIn</Link>
               </li>
-              <li className="w-8 h-8 rounded-full bg-gray-400"></li>
             </>
           )}
         </ul>
