@@ -10,3 +10,14 @@ export type UserStateType = {
   error: boolean;
   errorMessage: string;
 };
+
+export type SignUpType = {
+  email: string;
+  password: string;
+  username: string;
+};
+
+export type SignInType = {
+  email: string;
+  password: string;
+};
