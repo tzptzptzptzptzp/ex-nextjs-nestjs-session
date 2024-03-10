@@ -1,8 +1,8 @@
 import { store } from "../store";
 import { SignUpVerify, VerifySession } from "./operations";
-import { UserType } from "./types";
+import { SignUpType } from "./types";
 
-export const useSignUpVerifyDispatch = (req: UserType) => {
+export const useSignUpVerifyDispatch = (req: SignUpType) => {
   store.dispatch(SignUpVerify(req));
 };
 
