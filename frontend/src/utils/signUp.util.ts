@@ -8,6 +8,7 @@ export const signUp = async (req: UserType) => {
     const res = await axios.post(`${config.API_BASE_URL}user/create`, {
       email: req.email,
       password: req.password,
+      username: req.username,
     });
     const token = res.data;
     Cookie.set("authorization", token, { expires: 1 });

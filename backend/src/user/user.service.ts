@@ -16,16 +16,20 @@ export class UserService {
    * サインアップ
    * @param email
    * @param password
-   * @param uid
+   * @param username
    */
-  async userSignup(email: string, password: string): Promise<string> {
+  async userSignup(
+    email: string,
+    password: string,
+    username: string,
+  ): Promise<string> {
     await this.validateUserNotExist(email);
 
     const hashPassword = await bcrypt.hash(password, 10);
     const accountData = new UsersEntity({
       email: email,
       password: hashPassword,
-      username: '',
+      username: username,
     });
 
     const uuid = uuidv4();
