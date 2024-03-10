@@ -10,9 +10,9 @@ export class UserController {
   async userSignUp(
     @Body('email') email: string,
     @Body('password') password: string,
-    @Body('uid') uid: string,
+    @Body('username') username: string,
   ): Promise<string> {
-    return await this.userService.userSignup(email, password);
+    return await this.userService.userSignup(email, password, username);
   }
 
   @Post('/signin')

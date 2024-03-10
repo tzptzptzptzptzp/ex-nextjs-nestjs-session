@@ -44,7 +44,7 @@ const defaultValues: signUpType = {
   confirmPassword: "",
 };
 
-export const UserSchema = {
+export const SignUpSchema = {
   signUpSchema,
   defaultValues,
 };

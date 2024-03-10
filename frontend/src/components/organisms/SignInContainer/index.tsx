@@ -5,18 +5,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/form/Form";
 import { FormTextInput } from "@/components/form/FormTextInput";
 
-import { SignUpSchema } from "@/schema/user/signUp.schema";
-import { SignUpType } from "@/reducks/users/types";
+import { UserSchema } from "@/schema/user.schema";
+import { UserType } from "@/reducks/users/types";
 import { useSignUpVerifyDispatch } from "@/reducks/users/dispatches";
 
-export const SignUpContainer = () => {
+export const SignInContainer = () => {
   const { control, handleSubmit } = useForm({
-    defaultValues: SignUpSchema.defaultValues,
+    defaultValues: UserSchema.defaultValues,
     mode: "onChange",
-    resolver: zodResolver(SignUpSchema.signUpSchema),
+    resolver: zodResolver(UserSchema.signUpSchema),
   });
 
-  const handleClick = (req: SignUpType) => {
+  const handleClick = (req: UserType) => {
     useSignUpVerifyDispatch(req);
   };
   return (
