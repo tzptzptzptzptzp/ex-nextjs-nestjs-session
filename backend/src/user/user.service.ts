@@ -48,6 +48,8 @@ export class UserService {
   async userSignIn(email: string, password: string): Promise<string> {
     const user = await this.findUserByEmail(email);
 
+    console.log(user);
+
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       throw new HttpException(
@@ -94,7 +96,12 @@ export class UserService {
       );
     }
 
-    return snapshot.docs[0].data();
+    const data = {
+      uid: snapshot.docs[0].id,
+      ...snapshot.docs[0].data(),
+    };
+
+    return data;
   }
 
   /**
