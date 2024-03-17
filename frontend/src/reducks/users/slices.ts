@@ -9,4 +9,5 @@ const userSlice = createSlice({
   extraReducers: userReducers.extraReducers,
 });
 
+export const { initializeUser, updateUser } = userSlice.actions;
 export default userSlice;
