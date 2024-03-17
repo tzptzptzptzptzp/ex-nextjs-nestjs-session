@@ -3,6 +3,12 @@ import { SignInVerify, SignUpVerify, VerifySession } from "./operations";
 import { UserStateType } from "./types";
 
 const reducers = {
+  initializeUser: () => ({
+    user: null,
+    loading: false,
+    error: false,
+    errorMessage: "",
+  }),
   updateUser: (state: UserStateType, action: PayloadAction<UserStateType>) => {
     return { ...state, ...action.payload };
   },
