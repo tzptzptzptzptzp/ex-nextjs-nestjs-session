@@ -89,3 +89,101 @@ npm run dev // 開発用サーバー起動
 npm
 npm start // APIサーバー起動
 ```
+
+---
+
+<br>
+
+# Project Overview
+
+This repository is a learning resource designed to provide a deep understanding of core web development concepts such as authentication, session, state management, and UI branching based on state. The project aims not only at theoretical learning but also at exploring practical implementation techniques.
+
+## Technology Stack
+
+- **Frontend**: Uses [Next.js](https://nextjs.org/) to adopt cutting-edge frontend technologies such as server-side rendering and static site generation.
+- **Backend**: Utilizes [Nest.js](https://nestjs.com/) to build a robust backend architecture leveraging the advantages of TypeScript.
+- **Database & Authentication**: Employs Firebase's Realtime Database for the database and implements a custom authentication flow instead of using Firebase's authentication system.
+- **State Management**: Adopts [Redux](https://redux.js.org/) for efficient management of the application's overall state. The directory structure follows the Reducks pattern.
+- **Session & Token Management**: Uses [JWT (JSON Web Tokens)](https://jwt.io/) for session management, providing a secure token-based authentication mechanism. Tokens are stored in browser cookies and are automatically sent to the server during HTTP requests.
+
+## Features
+
+- **Custom Authentication Flow**: Implements a unique authentication process on the backend, including password hashing and token generation & validation, without using Firebase's authentication system. This allows for a deeper understanding of the inner workings of authentication systems and security concepts.
+- **Secure Session Management**: Establishes secure sessions for authenticated users and controls access to protected resources through JWT-based session management.
+- **Practical State Management**: Through the use of Redux for state management, efficiently manages complex application states and realizes state sharing between components.
+
+## Learning Objectives
+
+- Learn the basics of modern full-stack development using Next.js and Nest.js.
+- Understand the implementation methods for password safe hashing, token-based authentication, and session management through the construction of a custom authentication system.
+- Explore the principles and practices of state management with Redux, and investigate its use in large-scale applications.
+- Implement secure session management mechanisms using JWT to control access to protected resources.
+
+## Technologies Used
+
+Frontend
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/) (Adopting the Reducks pattern)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [axios](https://axios-http.com/)
+- [react-hook-form](https://react-hook-form.com/)
+- [zod](https://zod.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+Backend
+
+- [Nest.js](https://nestjs.com/)
+- [Firebase](https://firebase.google.com/)
+- [jwt](https://jwt.io/)
+- [bcrypt](https://github.com/kelektiv/node.bcrypt.js)
+- [class-validator](https://github.com/typestack/class-validator)
+- [cookie-parser](https://github.com/expressjs/cookie-parser)
+
+## Directory Structure
+
+```
+
+src/
+├── app
+├── components
+├── config
+├── hooks
+├── provider
+├── reducks
+├── schema
+├── utils
+
+components/
+├── atoms
+├── form
+├── molecules
+├── organisms
+├── templates
+
+reducks/user/
+├── dispatches.ts
+├── initializes.ts
+├── operations.ts
+├── reducers.ts
+├── selectors.ts
+├── slice.ts
+├── types.ts
+
+```
+
+## Development Steps
+
+Using npm
+
+```bash
+Frontend
+npm
+npm run dev // Start the development server
+
+Backend
+npm
+npm start // Start the API server
+```
