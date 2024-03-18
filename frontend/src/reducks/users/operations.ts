@@ -16,12 +16,8 @@ export const SignUpVerify = createAsyncThunk(
 export const SignInVerify = createAsyncThunk(
   "user/signInVerify",
   async (req: SignInType) => {
-    console.log(req);
-
     await signIn(req);
     const user = await verifySession();
-    console.log(user);
-
     return user;
   }
 );
